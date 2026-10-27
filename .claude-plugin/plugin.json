@@ -1,0 +1,9 @@
+{
+  "name": "shipright",
+  "version": "0.1.0",
+  "description": "Continuous delivery of software a human can stand behind: AI drafts, humans sign, tools can only say no.",
+  "author": { "name": "Shipright maintainers" },
+  "license": "Apache-2.0",
+  "repository": "https://github.com/agoopintsai/shipright",
+  "homepage": "https://github.com/agoopintsai/shipright"
+}

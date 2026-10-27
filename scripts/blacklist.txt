@@ -1,0 +1,12 @@
+# Public fence: one regex per line; '#' starts a comment. Any match anywhere in the repo fails CI.
+# Maintainers may add private patterns in scripts/blacklist.local.txt (gitignored, never committed).
+# Any CJK character (the repo is English only)
+[一-鿿]
+# 16-digit numeric ids
+\b1\d{15}\b
+# API keys and tokens
+sk-ant-
+(?i)ghp_[A-Za-z0-9]{20,}
+(?i)ghs_[A-Za-z0-9]{20,}
+AKIA[0-9A-Z]{16}
+xox[bp]-

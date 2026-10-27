@@ -1,0 +1,11 @@
+{
+  "name": "shipright",
+  "owner": { "name": "Shipright maintainers" },
+  "plugins": [
+    {
+      "name": "shipright",
+      "source": ".",
+      "description": "Continuous delivery of software a human can stand behind: AI drafts, humans sign, tools can only say no."
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+.pytest_cache/
+scripts/blacklist.local.txt

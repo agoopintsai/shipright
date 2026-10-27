@@ -1,0 +1,12 @@
+name: brain-lint
+description: Validate brain frontmatter, ids and links. Errors fail the job; warnings do not.
+inputs:
+  path:
+    description: Path to the brain repo root
+    required: false
+    default: "."
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: python3 "${{ github.action_path }}/../../../scripts/brain_lint.py" "${{ inputs.path }}"
