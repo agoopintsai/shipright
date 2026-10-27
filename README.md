@@ -24,6 +24,8 @@ Why it exists: [docs/STORY.md](docs/STORY.md).
 /shipright:setup
 ```
 
+The gates are Claude Code hooks. If you install Shipright from the Claude directory on claude.ai or Cowork, you get the skills (grill, where, modes) but not the gates.
+
 ## Your first 30 minutes
 
 `/shipright:setup` asks one question at a time, with a default for each:

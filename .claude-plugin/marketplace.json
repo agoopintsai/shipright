@@ -1,6 +1,7 @@
 {
   "name": "shipright",
   "owner": { "name": "Shipright maintainers" },
+  "description": "Shipright: AI drafts, humans sign, tools can only say no. Red-zone gates, a grill before risky work, and a decision brain for Claude Code.",
   "plugins": [
     {
       "name": "shipright",
