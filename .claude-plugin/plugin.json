@@ -1,9 +1,12 @@
 {
   "name": "shipright",
+  "displayName": "Shipright",
   "version": "0.1.0",
   "description": "Continuous delivery of software a human can stand behind: AI drafts, humans sign, tools can only say no.",
-  "author": { "name": "Shipright maintainers" },
+  "author": { "name": "agoopintsai", "url": "https://github.com/agoopintsai" },
   "license": "Apache-2.0",
   "repository": "https://github.com/agoopintsai/shipright",
-  "homepage": "https://github.com/agoopintsai/shipright"
+  "homepage": "https://github.com/agoopintsai/shipright",
+  "icon": "./.claude-plugin/icon.png",
+  "keywords": ["governance", "code-review", "spec-driven", "hooks", "guardrails", "decision-records", "human-in-the-loop"]
 }
