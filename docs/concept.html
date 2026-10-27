@@ -5,180 +5,364 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Shipright Concept</title>
 <style>
-:root {
-  --bg: #fafaf7; --fg: #1f2328; --muted: #5d6570; --line: #b9bec6; --card: #ffffff;
-  --human: #dbe8fb; --human-s: #3b6fc4;
-  --judge: #e6dcf7; --judge-s: #7a52c2;
-  --hands: #d5efe8; --hands-s: #2a8a73;
-  --brain: #fbebc8; --brain-s: #b07a12;
-  --chip: #d9dce1; --chip-t: #3d434b;
+/* Two figures on a dotted drafting grid. Fig 1 is the concept (three-layer pyramid, brain column, one read/write connector per layer). Fig 2 is the mechanism: four equal-width bands with tools drawn as grey chips where they bite. Gold is always the human. Dashed + muted means roadmap. */
+:root{
+  --bg:#f4f5f8; --panel:#ffffff; --fg:#1b2230; --muted:#5b6678; --line:#d3d9e2; --dot:#c9d0db;
+  --human:#b7791f; --human-bg:#fbf1dc; --human-bg2:#f6e3b8;
+  --ai:#4c51bf; --ai-bg:#e9eafb; --ai2:#0f766e; --ai2-bg:#dcf2ef;
+  --tool:#6b7689; --tool-bg:#eef0f4;
+  --gh:#24292f; --gh-bg:#f0f2f5;
+  --brain:#1b2230; --brain-bg:#1b2230; --brain-bg2:#2a3344; --brain-fg:#eef1f6; --brain-muted:#a4aec0;
+  --brain-teal:#4fc3b5; --brain-gold:#e0a84a; --brain-ai:#a3a8f7;
+  --shadow:rgba(27,34,48,.10);
+  --display:Georgia,"Times New Roman",serif;
+  --body:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,Helvetica,Arial,sans-serif;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #14171b; --fg: #e6e8eb; --muted: #98a1ac; --line: #4a525c; --card: #1c2025;
-    --human: #1f3354; --human-s: #7fa8ea;
-    --judge: #34285a; --judge-s: #b497ee;
-    --hands: #174238; --hands-s: #5cc3a8;
-    --brain: #4a3810; --brain-s: #e3b44f;
-    --chip: #3a4048; --chip-t: #d3d7dc;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #14171b; --fg: #e6e8eb; --muted: #98a1ac; --line: #4a525c; --card: #1c2025;
-  --human: #1f3354; --human-s: #7fa8ea;
-  --judge: #34285a; --judge-s: #b497ee;
-  --hands: #174238; --hands-s: #5cc3a8;
-  --brain: #4a3810; --brain-s: #e3b44f;
-  --chip: #3a4048; --chip-t: #d3d7dc;
-}
-* { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: var(--fg);
-  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
-main { max-width: 860px; margin: 0 auto; padding: 32px 16px 64px; }
-h1 { font-size: 1.8rem; margin: 0 0 4px; }
-.tag { color: var(--muted); margin: 0 0 32px; }
-figure { margin: 0 0 40px; }
-figcaption { font-weight: 600; margin-bottom: 8px; }
-figcaption span { color: var(--muted); font-weight: 400; }
-svg { width: 100%; height: auto; display: block; }
-svg text { fill: var(--fg); font: 13px system-ui, -apple-system, "Segoe UI", sans-serif; }
-svg .s { font-size: 11px; fill: var(--muted); }
-svg .b { font-weight: 700; font-size: 15px; }
-svg .c { text-anchor: middle; }
-.human { fill: var(--human); stroke: var(--human-s); }
-.judge { fill: var(--judge); stroke: var(--judge-s); }
-.hands { fill: var(--hands); stroke: var(--hands-s); }
-.brain { fill: var(--brain); stroke: var(--brain-s); }
-.card { fill: var(--card); stroke: var(--line); }
-.chip { fill: var(--chip); stroke: none; }
-svg .chipt { font-size: 10.5px; font-weight: 600; fill: var(--chip-t); text-anchor: middle; }
-.link { stroke: var(--muted); stroke-width: 1.6; fill: none; }
-.tools { fill: none; stroke: var(--muted); stroke-width: 1.4; stroke-dasharray: 6 5; }
-svg rect, svg polygon { stroke-width: 1.5; }
-.note { color: var(--muted); font-size: .9rem; }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#11151c; --panel:#1a2029; --fg:#e6e9ef; --muted:#9aa5b8; --line:#2f3947; --dot:#28303d;
+  --human:#e0a84a; --human-bg:#3a2d14; --human-bg2:#4a3a1a;
+  --ai:#a3a8f7; --ai-bg:#262a4e; --ai2:#4fc3b5; --ai2-bg:#123b37;
+  --tool:#aab4c6; --tool-bg:#1f2632;
+  --gh:#d0d7de; --gh-bg:#20262f;
+  --brain:#e6e9ef; --brain-bg:#0b0e13; --brain-bg2:#161b24; --brain-fg:#eef1f6; --brain-muted:#9aa5b8;
+  --shadow:rgba(0,0,0,.45); color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#11151c; --panel:#1a2029; --fg:#e6e9ef; --muted:#9aa5b8; --line:#2f3947; --dot:#28303d;
+  --human:#e0a84a; --human-bg:#3a2d14; --human-bg2:#4a3a1a;
+  --ai:#a3a8f7; --ai-bg:#262a4e; --ai2:#4fc3b5; --ai2-bg:#123b37;
+  --tool:#aab4c6; --tool-bg:#1f2632;
+  --gh:#d0d7de; --gh-bg:#20262f;
+  --brain:#e6e9ef; --brain-bg:#0b0e13; --brain-bg2:#161b24; --brain-fg:#eef1f6; --brain-muted:#9aa5b8;
+  --shadow:rgba(0,0,0,.45); color-scheme:dark }
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.7;
+  padding:0 16px 56px}
+.wrap{max-width:1240px;margin:0 auto}
+header{padding-block:40px 8px;max-width:76ch}
+.eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(28px,4.2vw,40px);line-height:1.2;margin:4px 0 0}
+h2{font-family:var(--display);font-weight:700;font-size:22px;margin:48px 0 6px}
+.sub{color:var(--muted);margin:0 0 10px;max-width:84ch}
+.thesis{margin:14px 0 0;display:grid;gap:8px;font-size:16px}
+.thesis div{padding-left:14px;border-left:3px solid var(--line)}
+.thesis div.h{border-color:var(--human)} .thesis div.a{border-color:var(--ai)} .thesis div.br{border-color:var(--brain)} .thesis div.g{border-color:var(--gh)} .thesis div.t{border-color:var(--tool)}
+.tagline{font-family:var(--display);font-weight:700;font-size:18px;color:var(--human);margin:8px 0 0}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:14px 0 2px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.fig{overflow-x:auto;margin-top:10px;border-radius:16px;background:var(--panel);box-shadow:0 1px 0 var(--line), 0 12px 32px -20px var(--shadow)}
+svg{display:block;min-width:900px;width:100%;height:auto;font-family:var(--body)}
+text{fill:var(--fg)}
+.d{font-family:var(--display);font-weight:700}
+.b{font-weight:700}
+.it{font-style:italic}
+.t-muted{fill:var(--muted)}
+.t-human{fill:var(--human)} .t-ai{fill:var(--ai)} .t-ai2{fill:var(--ai2)} .t-tool{fill:var(--tool)} .t-gh{fill:var(--gh)}
+.t-bf{fill:var(--brain-fg)} .t-bm{fill:var(--brain-muted)} .t-bteal{fill:var(--brain-teal)} .t-bgold{fill:var(--brain-gold)} .t-bai{fill:var(--brain-ai)}
+.tri{fill:var(--panel);stroke:none;filter:url(#sh)}
+.lay-h{fill:var(--human-bg)} .lay-a{fill:var(--ai-bg)} .lay-e{fill:var(--ai2-bg)}
+.hline{stroke:var(--panel);stroke-width:3}
+.spine{fill:url(#gBrain);stroke:var(--brain);stroke-width:1.5;filter:url(#sh)}
+.seg-gold{fill:var(--brain-gold);fill-opacity:.22} .seg-ai{fill:var(--brain-ai);fill-opacity:.18} .seg-teal{fill:var(--brain-teal);fill-opacity:.2}
+.fence{fill:none;stroke:var(--tool);stroke-width:2.5;stroke-dasharray:10 7}
+.dash{fill:none;stroke:var(--muted);stroke-width:1.4;stroke-dasharray:5 4}
+.band-human{fill:url(#gHuman);stroke:var(--human);stroke-width:1.5;filter:url(#sh)}
+.band-gh{fill:var(--gh-bg);stroke:var(--line);stroke-width:1.5;filter:url(#sh)}
+.band-ai{fill:var(--tool-bg);stroke:var(--tool);stroke-width:2;stroke-dasharray:9 6;filter:url(#sh)}
+.band-brain{fill:url(#gBrain2);stroke:var(--brain);stroke-width:1.5;filter:url(#sh)}
+.cell-teal{fill:var(--brain-teal);fill-opacity:.16;stroke:var(--brain-teal);stroke-width:1.2}
+.cell-gold{fill:var(--brain-gold);fill-opacity:.14;stroke:var(--brain-gold);stroke-width:1.2}
+.cell-shared{fill:none;stroke:var(--brain-fg);stroke-opacity:.45;stroke-width:1;stroke-dasharray:4 3}
+.chip{fill:var(--tool-bg);stroke:var(--tool);stroke-width:1.2}
+.chip-dark{fill:var(--brain-bg2);stroke:var(--brain-muted);stroke-width:1}
+.pr{fill:var(--panel);stroke:var(--gh);stroke-width:1.5}
+.pr-h{fill:var(--human-bg);stroke:var(--human);stroke-width:1.5}
+.n-ai{fill:var(--ai-bg);stroke:var(--ai);stroke-width:1.5}
+.n-ai2{fill:var(--ai2-bg);stroke:var(--ai2);stroke-width:1.5}
+.n-inlet{fill:var(--panel);stroke:var(--muted);stroke-width:1.5;filter:url(#sh)}
+.pill{fill:var(--panel);stroke:var(--human);stroke-width:1.3}
+.dia{fill:var(--human-bg);stroke:var(--human);stroke-width:2}
+.a{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.a-thin{stroke-width:1.8}
+.a-human{stroke:var(--human);color:var(--human)}
+.a-ai{stroke:var(--ai);color:var(--ai)}
+.a-ai2{stroke:var(--ai2);color:var(--ai2)}
+.a-muted{stroke:var(--muted);color:var(--muted)}
+.a-tool{stroke:var(--tool);color:var(--tool);stroke-dasharray:5 5}
+.a-brain{stroke:var(--brain);color:var(--brain)}
+marker path{fill:context-stroke}
+.cap{max-width:84ch;margin-top:14px;color:var(--muted);font-size:14px}
+.cap b{color:var(--fg)}
+.note{margin-top:40px;color:var(--muted);font-size:14px}
+.note a{color:var(--ai)}
+:focus-visible{outline:2px solid var(--human);outline-offset:2px}
 </style>
 </head>
 <body>
-<main>
-<h1>Shipright</h1>
-<p class="tag">Ship it right, keep shipping. AI drafts, humans sign, tools can only say no.</p>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Concept · v0.1</div>
+  <h1>Shipright</h1>
+  <p class="tagline">AI drafts, humans sign, tools can only say no.</p>
+  <div class="thesis">
+    <div class="h"><b>Humans are the bottleneck, so they only make the decisions that matter:</b> what to build, approve the spec, approve the code, write the why.</div>
+    <div class="a"><b>Humans and AI supervise each other:</b> the human reviews the AI's spec and code; the AI grills the human's plan before work starts.</div>
+    <div class="br"><b>The brain fills the gaps in human memory:</b> decisions and their reasons live in a repo that outlasts any session. The thicker it gets, the fewer questions climb up to you.</div>
+    <div class="g"><b>Everything goes up as a PR, reviewed twice:</b> first the spec, then the code.</div>
+    <div class="t"><b>Tools only have veto power.</b> They are the edge of the shape, not a layer: they can refuse, never approve.</div>
+  </div>
+  <div class="legend">
+    <span><i style="background:var(--human)"></i>Human · decide</span>
+    <span><i style="background:var(--ai)"></i>AI judge · manage</span>
+    <span><i style="background:var(--ai2)"></i>AI hands · execute</span>
+    <span><i style="background:var(--brain)"></i>Brain</span>
+    <span><i style="background:var(--tool)"></i>Tools (veto only)</span>
+  </div>
+</header>
 
-<figure>
-<figcaption>Figure 1. Three layers, one spine <span>(who does what, and what each layer reads and writes)</span></figcaption>
-<svg viewBox="0 0 760 450" role="img" aria-label="A pyramid of three layers (human, AI judge, AI hands and triage) connected to a brain column, all inside a dashed outline for tools">
+<h2>1. Three layers, one spine</h2>
+<p class="sub">Borrowed from the classic decide / manage / execute split. Width is workload, and the shape is a funnel: problems enter at the bottom, the brain answers what it already knows, and only the rest climbs.</p>
+<div class="fig">
+<svg viewBox="0 0 1100 690" role="img" aria-label="A three-layer pyramid: Human decides, AI judge manages, AI hands execute. A brain repo column on the right has three segments, each linked to one layer. The pyramid edges are a dashed fence of tools.">
   <defs>
-    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0 0L10 5L0 10z" fill="var(--muted)"/>
-    </marker>
+    <marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker>
+    <pattern id="dots1" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1.2" cy="1.2" r="1.2" style="fill:var(--dot)"/></pattern>
+    <linearGradient id="gBrain" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--brain-bg2)"/><stop offset="1" style="stop-color:var(--brain-bg)"/></linearGradient>
+    <filter id="sh" x="-5%" y="-10%" width="110%" height="130%"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#1b2230" flood-opacity=".10"/></filter>
+    <clipPath id="triclip"><polygon points="390,40 750,560 30,560"/></clipPath>
   </defs>
-  <rect class="tools" x="2" y="2" width="756" height="446" rx="12"/>
-  <text class="s" x="20" y="437">Tools: hooks, gates, CI, lint. They can only say no.</text>
+  <rect x="0" y="0" width="1100" height="690" fill="url(#dots1)"/>
 
-  <polygon class="human" points="240,20 304,130 176,130"/>
-  <text class="b c" x="240" y="92">Human</text>
-  <text class="s c" x="240" y="110">decide</text>
+  <!-- pyramid and its three layers -->
+  <polygon class="tri" points="390,40 750,560 30,560"/>
+  <g clip-path="url(#triclip)">
+    <rect class="lay-h" x="30" y="40" width="720" height="180"/>
+    <rect class="lay-a" x="30" y="220" width="720" height="180"/>
+    <rect class="lay-e" x="30" y="400" width="720" height="160"/>
+    <line class="hline" x1="30" y1="220" x2="750" y2="220"/>
+    <line class="hline" x1="30" y1="400" x2="750" y2="400"/>
+  </g>
+  <polygon class="fence" points="390,40 750,560 30,560"/>
 
-  <polygon class="judge" points="176,130 304,130 385,270 95,270"/>
-  <text class="b c" x="240" y="186">AI judge</text>
-  <text class="s c" x="240" y="204">manage</text>
-  <text class="s c" x="240" y="224">grill, write spec, delegate</text>
+  <!-- roles inside the layers -->
+  <text x="390" y="106" font-size="16" text-anchor="middle" class="d">Human</text>
 
-  <polygon class="hands" points="95,270 385,270 460,400 20,400"/>
-  <text class="b c" x="240" y="322">AI hands + triage</text>
-  <text class="s c" x="240" y="340">execute</text>
-  <text class="s c" x="240" y="360">read, search, write, test</text>
+  <text x="288" y="312" font-size="14" text-anchor="middle" class="t-ai b">AI judge</text>
+  <text x="288" y="330" font-size="11.5" text-anchor="middle" class="t-muted">expensive model:</text>
+  <text x="288" y="345" font-size="11.5" text-anchor="middle" class="t-muted">thinks, doesn't type</text>
+  <text x="486" y="312" font-size="11.5" text-anchor="middle">grill · write spec · delegate</text>
+  <text x="486" y="330" font-size="11" text-anchor="middle" class="t-muted">manages the AI's work,</text>
+  <text x="486" y="344" font-size="11" text-anchor="middle" class="t-muted">not the human</text>
 
-  <line class="link" x1="298" y1="75" x2="556" y2="75" marker-start="url(#a)" marker-end="url(#a)"/>
-  <text class="s c" x="428" y="66">writes the why, reads direction</text>
-  <line class="link" x1="372" y1="205" x2="556" y2="205" marker-start="url(#a)" marker-end="url(#a)"/>
-  <text class="s c" x="464" y="196">reads banks, writes spec</text>
-  <line class="link" x1="446" y1="340" x2="556" y2="340" marker-start="url(#a)" marker-end="url(#a)"/>
-  <text class="s c" x="501" y="331">reads map, logs progress</text>
+  <rect class="dash" x="150" y="440" width="212" height="92" rx="8"/>
+  <text x="256" y="468" font-size="13" text-anchor="middle" class="t-muted b">Triage (roadmap)</text>
+  <text x="256" y="490" font-size="11.5" text-anchor="middle" class="t-muted">asks the brain first,</text>
+  <text x="256" y="506" font-size="11.5" text-anchor="middle" class="t-muted">solves what it knows</text>
+  <text x="540" y="468" font-size="14" text-anchor="middle" class="t-ai2 b">AI hands</text>
+  <text x="540" y="488" font-size="12" text-anchor="middle">read · search · write · test</text>
+  <text x="540" y="508" font-size="11.5" text-anchor="middle" class="t-muted">cheap models:</text>
+  <text x="540" y="522" font-size="11.5" text-anchor="middle" class="t-muted">type, don't think</text>
 
-  <text class="b c" x="650" y="14" style="font-size:12px">Brain repo</text>
-  <rect class="brain" x="560" y="20" width="180" height="110" rx="8"/>
-  <text class="b c" x="650" y="68" style="font-size:13px">Decisions and why</text>
-  <text class="s c" x="650" y="88">human-signed</text>
-  <rect class="brain" x="560" y="145" width="180" height="120" rx="8"/>
-  <text class="b c" x="650" y="196" style="font-size:13px">Templates and banks</text>
-  <text class="s c" x="650" y="216">spec templates, question banks</text>
-  <rect class="brain" x="560" y="280" width="180" height="120" rx="8"/>
-  <text class="b c" x="650" y="326" style="font-size:13px">Progress and solved</text>
-  <text class="s c" x="650" y="346">append-only log</text>
+  <!-- escalation arrow up the middle -->
+  <path class="a a-muted a-thin" d="M392 540 V132" marker-end="url(#m1)"/>
+  <text x="376" y="340" font-size="10.5" class="t-muted" transform="rotate(-90 376 340)" text-anchor="middle">Only what the brain can't answer climbs; the thicker the brain, the fewer climb</text>
+
+  <!-- left labels -->
+  <text x="296" y="124" font-size="16" text-anchor="end" class="d">Decide</text>
+  <text x="296" y="144" font-size="12" text-anchor="end" class="t-muted">Humans are the bottleneck</text>
+  <text x="296" y="160" font-size="12" text-anchor="end" class="t-muted">say what · approve · write the why</text>
+  <text x="184" y="290" font-size="16" text-anchor="end" class="d">Manage</text>
+  <text x="184" y="310" font-size="12" text-anchor="end" class="t-muted">decisions into specs</text>
+  <text x="184" y="326" font-size="12" text-anchor="end" class="t-muted">specs into work</text>
+  <text x="104" y="424" font-size="16" text-anchor="end" class="d">Execute</text>
+  <text x="104" y="444" font-size="12" text-anchor="end" class="t-muted">high volume</text>
+
+  <!-- brain column -->
+  <text x="960" y="52" font-size="15" text-anchor="middle" class="d">Brain repo</text>
+  <rect class="spine" x="870" y="64" width="180" height="496" rx="10"/>
+  <rect class="seg-gold" x="870" y="64" width="180" height="156" rx="10"/>
+  <rect class="seg-ai" x="870" y="222" width="180" height="176"/>
+  <rect class="seg-teal" x="870" y="400" width="180" height="160" rx="10"/>
+  <text x="960" y="118" font-size="12.5" text-anchor="middle" class="t-bgold b">Decisions and why</text>
+  <text x="960" y="138" font-size="11" text-anchor="middle" class="t-bm">human-signed</text>
+  <text x="960" y="156" font-size="10.5" text-anchor="middle" class="t-bm">cross-product goes to shared/</text>
+  <text x="960" y="288" font-size="12.5" text-anchor="middle" class="t-bai b">Templates and</text>
+  <text x="960" y="305" font-size="12.5" text-anchor="middle" class="t-bai b">question banks</text>
+  <text x="960" y="326" font-size="11" text-anchor="middle" class="t-bm">grown from past mistakes</text>
+  <text x="960" y="448" font-size="12.5" text-anchor="middle" class="t-bteal b">Progress and</text>
+  <text x="960" y="465" font-size="12.5" text-anchor="middle" class="t-bteal b">solved problems</text>
+  <text x="960" y="486" font-size="11" text-anchor="middle" class="t-bm">append-only</text>
+  <text x="960" y="504" font-size="11" text-anchor="middle" class="t-bm it">auto write-back: roadmap</text>
+
+  <!-- one read/write connector per layer -->
+  <path class="a a-human a-thin" d="M456 130 H866" marker-start="url(#m1)" marker-end="url(#m1)"/>
+  <text x="661" y="120" font-size="12" text-anchor="middle" class="t-human b">Reads the why: settled decisions and details</text>
+  <text x="661" y="148" font-size="11.5" text-anchor="middle" class="t-muted it">Writes the why: only this layer can</text>
+  <path class="a a-ai a-thin" d="M586 318 H866" marker-start="url(#m1)" marker-end="url(#m1)"/>
+  <text x="726" y="296" font-size="11.5" text-anchor="middle" class="t-ai b">Reads templates and banks</text>
+  <text x="726" y="310" font-size="11.5" text-anchor="middle" class="t-ai b">to grill and write specs</text>
+  <text x="726" y="336" font-size="11.5" text-anchor="middle" class="t-muted it">Writes new questions back</text>
+  <path class="a a-ai2 a-thin" d="M698 480 H866" marker-start="url(#m1)" marker-end="url(#m1)"/>
+  <text x="782" y="454" font-size="11.5" text-anchor="middle" class="t-ai2 b">Reads solved</text>
+  <text x="782" y="468" font-size="11.5" text-anchor="middle" class="t-ai2 b">problems first</text>
+  <text x="782" y="498" font-size="11.5" text-anchor="middle" class="t-muted it">Logs progress</text>
+
+  <!-- boundary notes -->
+  <text x="530" y="210" font-size="11.5" class="t-muted b">⇅ Mutual check:</text>
+  <text x="530" y="226" font-size="11.5" class="t-muted">human reviews the AI's spec, AI grills the human's plan</text>
+  <text x="652" y="392" font-size="11.5" class="t-muted b">⇅ The spec draws the boundary;</text>
+  <text x="652" y="408" font-size="11.5" class="t-muted">hands report back for review</text>
+
+  <!-- bottom: problems in, fence label -->
+  <path class="a a-muted" d="M200 650 V568" marker-end="url(#m1)"/>
+  <text x="200" y="672" font-size="12.5" text-anchor="middle" class="t-muted b">Problems come in</text>
+  <text x="760" y="604" font-size="12" text-anchor="end" class="t-tool b">The edges are the tools: hooks · gates · CI · lint</text>
+  <text x="760" y="622" font-size="11.5" text-anchor="end" class="t-tool">They refuse, never approve. They are not a layer.</text>
 </svg>
-</figure>
+</div>
+<p class="cap"><b>How to read it.</b> The shape is the argument: it gets narrower going up, because humans are the bottleneck and should only decide what matters. The two boundary lines are where humans and AI check each other: the human reviews the AI's spec, and the AI grills the human's plan. The brain column on the right has three segments, and each layer reads and writes a different one of them. The dashed edges are tools: they can refuse, never approve, and they are not a layer.</p>
 
-<figure>
-<figcaption>Figure 2. Mechanism <span>(one change, from request to shipped; grey chips mark where tools bite)</span></figcaption>
-<svg viewBox="0 0 760 520" role="img" aria-label="Four bands: human, GitHub product repo, AI, brain repo, with grey chips for gate, CI, hook and lint">
+<h2>2. Mechanism: tools, the PR, and two repos</h2>
+<p class="sub">The same three layers with the real pieces: a GitHub product repo where spec and code share one PR, a separate brain repo, and the grey chips where tools bite. Every chip can only refuse.</p>
+<div class="fig">
+<svg viewBox="0 0 1280 950" role="img" aria-label="Mechanism: Human, GitHub product repo with one PR and two human reviews, AI inside a tool fence, and the brain repo with progress and decisions, plus tool chips where each can refuse.">
   <defs>
-    <marker id="d" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M0 0L10 5L0 10z" fill="var(--muted)"/>
-    </marker>
+    <marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z"/></marker>
+    <pattern id="dots" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1.2" cy="1.2" r="1.2" style="fill:var(--dot)"/></pattern>
+    <linearGradient id="gHuman" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--human-bg2)"/><stop offset="1" style="stop-color:var(--human-bg)"/></linearGradient>
+    <linearGradient id="gBrain2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color:var(--brain-bg2)"/><stop offset="1" style="stop-color:var(--brain-bg)"/></linearGradient>
   </defs>
+  <rect x="0" y="0" width="1280" height="950" fill="url(#dots)"/>
 
-  <rect class="human" x="10" y="10" width="740" height="104" rx="10"/>
-  <text class="b" x="26" y="34">Human</text>
-  <rect class="card" x="40" y="52" width="200" height="44" rx="22"/>
-  <text class="c" x="140" y="79">say what you want</text>
-  <rect class="card" x="280" y="52" width="200" height="44" rx="22"/>
-  <text class="c" x="380" y="79">approve spec, approve code</text>
-  <rect class="card" x="520" y="52" width="200" height="44" rx="22"/>
-  <text class="c" x="620" y="79">write the why</text>
+  <!-- left margin: problem inlet and brain-growth list -->
+  <rect class="n-inlet" x="20" y="206" width="140" height="100" rx="10"/>
+  <text x="90" y="236" font-size="13" text-anchor="middle" class="b">Problems come in</text>
+  <text x="90" y="260" font-size="11" text-anchor="middle" class="t-muted">issues · incidents</text>
+  <text x="90" y="276" font-size="11" text-anchor="middle" class="t-muted">new needs</text>
+  <path class="a a-muted" d="M90 308 V428 a12 12 0 0 0 12 12 H186" marker-end="url(#m)"/>
 
-  <rect class="card" x="10" y="134" width="740" height="104" rx="10"/>
-  <text class="b" x="26" y="158">GitHub product repo</text>
-  <text class="s" x="200" y="158">one PR, two reviews</text>
-  <rect class="judge" x="40" y="172" width="190" height="50" rx="8"/>
-  <text class="c" x="135" y="194">1. spec review</text>
-  <text class="s c" x="135" y="211">human approves the spec</text>
-  <rect class="judge" x="290" y="172" width="190" height="50" rx="8"/>
-  <text class="c" x="385" y="194">2. code review</text>
-  <text class="s c" x="385" y="211">human approves the code</text>
-  <rect class="hands" x="540" y="172" width="180" height="50" rx="8"/>
-  <text class="c" x="630" y="194">3. ship</text>
-  <text class="s c" x="630" y="211">human presses the button</text>
-  <line class="link" x1="230" y1="197" x2="288" y2="197" marker-end="url(#d)"/>
-  <line class="link" x1="480" y1="197" x2="538" y2="197" marker-end="url(#d)"/>
-  <rect class="chip" x="600" y="142" width="48" height="18" rx="9"/><text class="chipt" x="624" y="155">gate</text>
-  <rect class="chip" x="656" y="142" width="40" height="18" rx="9"/><text class="chipt" x="676" y="155">CI</text>
+  <text x="16" y="732" font-size="12.5" class="t-muted b">How the brain grows</text>
+  <text x="16" y="756" font-size="12" class="t-ai2">① progress is logged</text>
+  <text x="16" y="778" font-size="12" class="t-ai2">② AI drafts</text>
+  <text x="16" y="800" font-size="12" class="t-human">③ human writes the why</text>
+  <text x="16" y="822" font-size="12" class="t-tool">④ lint keeps it fresh</text>
+  <text x="16" y="844" font-size="12" class="t-muted">⑤ read next time</text>
 
-  <rect class="hands" x="10" y="258" width="740" height="104" rx="10"/>
-  <text class="b" x="26" y="282">AI</text>
-  <text class="s" x="60" y="282">judge decides, hands execute</text>
-  <rect class="card" x="40" y="298" width="200" height="50" rx="8"/>
-  <text class="c" x="140" y="318">triage picks up</text>
-  <text class="s c" x="140" y="336">the problem</text>
-  <rect class="card" x="290" y="298" width="170" height="50" rx="8"/>
-  <text class="c" x="375" y="318">asks the brain</text>
-  <text class="s c" x="375" y="336">decisions, map, log</text>
-  <rect class="card" x="510" y="298" width="210" height="50" rx="8"/>
-  <text class="c" x="615" y="318">solves or escalates</text>
-  <text class="s c" x="615" y="336">escalates to the human</text>
-  <line class="link" x1="240" y1="323" x2="288" y2="323" marker-end="url(#d)"/>
-  <line class="link" x1="460" y1="323" x2="508" y2="323" marker-end="url(#d)"/>
-  <rect class="chip" x="690" y="266" width="44" height="18" rx="9"/><text class="chipt" x="712" y="279">hook</text>
+<g transform="translate(70 0)">
+  <!-- ===== Human band ===== -->
+  <rect class="band-human" x="120" y="28" width="720" height="116" rx="14"/>
+  <text x="144" y="70" font-size="26" class="d">Human</text>
+  <text x="144" y="94" font-size="12" class="t-muted">decide ·</text>
+  <text x="144" y="110" font-size="12" class="t-muted">approval is never outsourced</text>
+  <rect class="pill" x="344" y="72" width="146" height="34" rx="17"/><text x="417" y="94" font-size="11.5" text-anchor="middle" class="b">① Say what you want</text>
+  <rect class="pill" x="500" y="72" width="196" height="34" rx="17"/><text x="598" y="94" font-size="11.5" text-anchor="middle" class="b">② Approve spec, approve code</text>
+  <rect class="pill" x="706" y="72" width="114" height="34" rx="17"/><text x="763" y="94" font-size="11.5" text-anchor="middle" class="b">③ Write the why</text>
 
-  <rect class="brain" x="10" y="382" width="740" height="104" rx="10"/>
-  <text class="b" x="26" y="406">Brain repo</text>
-  <rect class="card" x="40" y="420" width="320" height="50" rx="8"/>
-  <text class="c" x="200" y="440">progress log</text>
-  <text class="s c" x="200" y="458">written by AI, append-only</text>
-  <rect class="card" x="400" y="420" width="320" height="50" rx="8"/>
-  <text class="c" x="560" y="440">decisions and why</text>
-  <text class="s c" x="560" y="458">human-signed</text>
-  <rect class="chip" x="690" y="390" width="40" height="18" rx="9"/><text class="chipt" x="710" y="403">lint</text>
+  <!-- arrows between Human and AI (drawn first; the GitHub band covers them where they cross it) -->
+  <path class="a a-ai" d="M470 360 V146" marker-end="url(#m)"/>
+  <path class="a a-ai2" d="M540 360 V146" marker-end="url(#m)"/>
+  <text x="552" y="160" font-size="11.5" class="t-muted b">Mutual check</text>
+  <text x="552" y="174" font-size="11.5" class="t-muted">human reviews AI ↓ AI grills human ↑</text>
+  <path class="a a-human" d="M132 146 V370" marker-end="url(#m)"/>
+  <text x="146" y="322" font-size="12" class="t-human b">A signed decision opens the gate</text>
+  <text x="146" y="337" font-size="11.5" class="t-human">request changes sends it back</text>
+  <rect class="chip" x="564" y="314" width="272" height="22" rx="11"/>
+  <text x="700" y="329" font-size="10.5" text-anchor="middle" class="t-tool b">red-zone gate · tiers: file / commit / github</text>
 
-  <line class="link" x1="380" y1="114" x2="380" y2="132" marker-end="url(#d)"/>
-  <line class="link" x1="380" y1="238" x2="380" y2="256" marker-end="url(#d)"/>
-  <line class="link" x1="380" y1="362" x2="380" y2="380" marker-end="url(#d)"/>
+  <!-- ===== GitHub product repo ===== -->
+  <rect class="band-gh" x="120" y="206" width="720" height="100" rx="14"/>
+  <text x="144" y="198" font-size="12" class="t-gh b">GitHub product repo · one PR, two human reviews</text>
+  <rect class="chip" x="724" y="184" width="112" height="20" rx="10"/>
+  <text x="780" y="198" font-size="10.5" text-anchor="middle" class="t-tool b">CI · tests · lint</text>
+  <rect class="pr" x="144" y="216" width="240" height="66" rx="10"/>
+  <text x="162" y="238" font-size="15" class="b">① Spec review</text>
+  <text x="162" y="257" font-size="11.5">spec in the PR</text>
+  <text x="162" y="273" font-size="11.5">human approves before work starts</text>
+  <rect class="pr" x="444" y="216" width="240" height="66" rx="10"/>
+  <text x="462" y="238" font-size="15" class="b">② Code review</text>
+  <text x="462" y="257" font-size="11.5">code pushed to the same PR</text>
+  <text x="462" y="273" font-size="11.5">human reviews, then merges</text>
+  <rect class="pr-h" x="704" y="216" width="112" height="66" rx="10"/>
+  <text x="760" y="238" font-size="15" text-anchor="middle" class="b">③ Ship</text>
+  <text x="760" y="257" font-size="11.5" text-anchor="middle" class="t-human">a human presses</text>
+  <text x="760" y="273" font-size="11.5" text-anchor="middle" class="t-human">the button</text>
+  <text x="144" y="298" font-size="10.5" class="t-muted it">Plugin enforces this up to the commit layer today; GitHub approval is tier `github` (roadmap)</text>
 
-  <rect class="chip" x="10" y="498" width="44" height="16" rx="8"/>
-  <text class="s" x="62" y="510">Grey chips: where tools bite. Gate: red-zone edits. CI: checks on the PR. Hook: tool calls. Lint: brain format.</text>
+  <!-- ===== AI band (the dashed border is the fence) ===== -->
+  <rect class="band-ai" x="120" y="372" width="720" height="240" rx="14"/>
+  <rect class="chip" x="186" y="360" width="424" height="24" rx="12"/>
+  <text x="398" y="376" font-size="10.5" text-anchor="middle" class="t-tool b">hooks · modes enforced · a Workflow without a pinned model is denied</text>
+  <rect class="chip" x="630" y="360" width="188" height="24" rx="12"/>
+  <text x="724" y="376" font-size="10.5" text-anchor="middle" class="t-tool b">refuse only, never approve</text>
+
+  <text x="144" y="406" font-size="22" class="d">AI</text>
+  <text x="182" y="406" font-size="13" class="t-muted">judge and hands, all inside the fence</text>
+
+  <rect class="dash" x="144" y="418" width="672" height="36" rx="8"/>
+  <text x="162" y="441" font-size="12.5" class="t-muted b">Triage (roadmap)</text>
+  <text x="290" y="441" font-size="12" class="t-muted it">picks up a problem, asks the brain, solves it or escalates</text>
+
+  <rect class="n-ai" x="144" y="468" width="326" height="130" rx="10"/>
+  <text x="162" y="492" font-size="15" class="t-ai b">AI judge</text>
+  <text x="236" y="492" font-size="12" class="t-muted">manage · expensive model</text>
+  <text x="162" y="516" font-size="12">challenge the need</text>
+  <text x="162" y="534" font-size="12">/shipright:grill → consensus doc</text>
+  <text x="162" y="552" font-size="12">write spec · /shipright:delegate · review</text>
+  <text x="162" y="578" font-size="11.5" class="t-muted">reads condensed reports, not raw files</text>
+  <rect class="n-ai2" x="490" y="468" width="326" height="130" rx="10"/>
+  <text x="508" y="492" font-size="15" class="t-ai2 b">AI hands</text>
+  <text x="586" y="492" font-size="12" class="t-muted">execute · cheap models</text>
+  <text x="508" y="516" font-size="12">read · search · write code · run tests</text>
+  <text x="508" y="534" font-size="12">stays inside the spec's boundary</text>
+  <text x="508" y="578" font-size="11.5" class="t-muted">never merges</text>
+
+  <!-- AI and brain -->
+  <path class="a a-tool" d="M150 614 V688" marker-end="url(#m)"/>
+  <text x="162" y="642" font-size="11.5" class="t-tool">lint keeps it fresh</text>
+  <text x="162" y="657" font-size="11.5" class="t-tool">· blocks broken links</text>
+  <path class="a a-ai2" d="M420 614 V688" marker-end="url(#m)"/>
+  <text x="410" y="642" font-size="11.5" text-anchor="end" class="t-ai2">writes progress and</text>
+  <text x="410" y="657" font-size="11.5" text-anchor="end" class="t-ai2">what was solved</text>
+  <path class="a a-brain" d="M530 688 V614" marker-end="url(#m)"/>
+  <text x="542" y="654" font-size="12">reads context · banks · past decisions</text>
+
+  <!-- human to brain: the gold line, through the diamond -->
+  <path class="a a-human" d="M842 86 H896 a14 14 0 0 1 14 14 V856 a14 14 0 0 1 -14 14 H842" marker-end="url(#m)"/>
+  <text x="928" y="360" font-size="12" class="t-human b" transform="rotate(90 928 360)" text-anchor="middle">When a grill closes: record the decision?</text>
+  <polygon class="dia" points="910,616 934,640 910,664 886,640"/>
+  <text x="910" y="645" font-size="14" text-anchor="middle" class="t-human b">?</text>
+  <text x="944" y="624" font-size="12.5" class="t-human b">Record a decision?</text>
+  <text x="944" y="640" font-size="11.5" class="t-muted">source: the grill's consensus doc</text>
+  <text x="944" y="656" font-size="11.5" class="t-muted">AI drafts the what</text>
+  <text x="944" y="672" font-size="11.5" class="t-muted">human writes the why and commits it</text>
+  <text x="928" y="780" font-size="12" class="t-human b" transform="rotate(90 928 780)" text-anchor="middle">the why lands in the brain repo</text>
+
+  <!-- ===== Brain band ===== -->
+  <rect class="band-brain" x="120" y="690" width="720" height="240" rx="14"/>
+  <text x="144" y="724" font-size="26" class="d t-bf">Brain repo</text>
+  <text x="144" y="744" font-size="12" class="t-bm">separate repo · two kinds of memory</text>
+  <rect class="chip-dark" x="476" y="706" width="340" height="22" rx="11"/>
+  <text x="646" y="721" font-size="10.5" text-anchor="middle" class="t-bm b">brain-lint · required fields · broken links · 180 days</text>
+
+  <rect class="cell-teal" x="144" y="756" width="672" height="56" rx="8"/>
+  <text x="160" y="777" font-size="13" class="t-bteal b">Progress</text>
+  <text x="236" y="777" font-size="12" class="t-bf">episodic · append-only</text>
+  <text x="160" y="797" font-size="11.5" class="t-bm">what was signed, merged, shipped · <tspan class="it">auto write-back: roadmap</tspan></text>
+
+  <rect class="cell-gold" x="144" y="824" width="672" height="92" rx="8"/>
+  <rect class="cell-shared" x="156" y="834" width="648" height="26" rx="6"/>
+  <text x="168" y="852" font-size="12" class="t-bf b">shared/</text>
+  <text x="228" y="852" font-size="11.5" class="t-bm">cross-product decisions</text>
+  <text x="160" y="884" font-size="13" class="t-bgold b">Decisions and why</text>
+  <text x="290" y="884" font-size="12" class="t-bf">semantic · human-signed</text>
+  <text x="160" y="904" font-size="11.5" class="t-bm">products/&lt;x&gt;/decisions/ · criteria, rejected options · re-verify every 180 days</text>
+</g>
 </svg>
-</figure>
+</div>
+<p class="cap"><b>How to read it.</b> The four bands map onto Figure 1: the human on top, the GitHub product repo where humans and AI hand work across, the AI (judge and hands) inside its fence, and the brain repo, which is the column from Figure 1 laid flat. The grey chips are tools, and each one can only refuse. Spec and code share one PR in the product repo, reviewed by a human twice. The brain is a separate repo, and decisions enter it only through a human: the AI drafts the what, and the human writes the why.</p>
 
 <p class="note">See the <a href="../README.md">README</a> and the <a href="DESIGN.md">design contract</a>.</p>
-</main>
+</div>
 </body>
 </html>
