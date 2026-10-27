@@ -1,6 +1,6 @@
 ---
 name: executor
-description: Executor for delegate mode. Implements a precise brief: writes code, edits files, runs commands and tests, and reports with evidence. Makes no design decisions and never merges.
+description: "Executor for delegate mode. Implements a precise brief: writes code, edits files, runs commands and tests, and reports with evidence. Makes no design decisions and never merges."
 model: sonnet
 effort: medium
 ---
