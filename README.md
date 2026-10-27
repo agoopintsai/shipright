@@ -110,6 +110,15 @@ Not in v0.1 (DESIGN section 12):
 
 See [CONTRIBUTING.md](CONTRIBUTING.md), including the template for proposing a question for the core bank.
 
+## Privacy and what it runs
+
+Shipright collects nothing and has no server.
+
+- **What runs:** six Claude Code hooks call `python3 scripts/shipright_hooks.py` on your machine (events listed in `hooks/hooks.json`). The script reads `shipright.yaml`, the paths of files Claude is about to edit, your git branch, and the brain repo you configured. When Claude runs a Workflow script, the hook reads that script to check which models it uses.
+- **What it calls:** `git` (read-only: branch, log, status) on your project and brain. On macOS, `osascript` to show a local notification when subagent limits are crossed.
+- **What it sends:** nothing. No network requests, no telemetry, no analytics.
+- **What it stores, all on your machine:** `shipright.yaml`; the decision docs and log the grill skill writes into your brain repo; small session state (current mode, lookup counters, an error log) in the plugin data directory (`$CLAUDE_PLUGIN_DATA`, or `~/.shipright` if unset); and one `SHIPRIGHT_SESSION` line appended to Claude Code's session env file. Session state older than seven days is cleaned up.
+
 ## License
 
 Apache-2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
